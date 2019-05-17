@@ -62,7 +62,6 @@ public class ExcelRead {
 					student.setBiology((double) getCellValue(cell));
 					break;
 				}
-
 			}
 			details.add(student);
 			Calculation calculate = new Calculation();
