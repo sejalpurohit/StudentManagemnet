@@ -13,12 +13,10 @@ public class StudentChoice {
 		List<Students> sDetails = sRead.readFromExcel(filePathStudent);
 		System.out.println("Welcome to Students Portal\nStudent" + "Service:-" + "\n1)View All"
 				+ "\n2)View Student by Id");
-	
 		JDBC jdbc = new JDBC();
-		//System.out.println("size......"+sDetails.size());
 		for (int index = 0; index < sDetails.size(); index++) {
-			
-			switch (sDetails.get(index).getAction()) {
+			try {
+			switch (sDetails.get(index).getAction().toLowerCase()) {
 			case "view": {
 				System.out.println("Choice:- View");
 				Students students =jdbc.getSpecificStudent((int) sDetails.get(index).getId());
@@ -33,6 +31,7 @@ public class StudentChoice {
 				System.out.println("Biology     :"+students.getBiology());
 				System.out.println("Total       :"+students.getTotal());
 				System.out.println("Percentage  :"+students.getPercentage());
+				System.out.println("Percentage  :"+students.getGrade());
 				break;
 			}
 			case "view all": {
@@ -50,12 +49,19 @@ public class StudentChoice {
 					System.out.println("Maths       :"+students.get(i).getMaths());
 					System.out.println("Biology     :"+students.get(i).getBiology());
 					System.out.println("Total       :"+students.get(i).getTotal());
-					System.out.println("Percentage  :"+students.get(i).getPercentage());				
+					System.out.println("Percentage  :"+students.get(i).getPercentage());
+					System.out.println("Grade  :"+students.get(i).getGrade());
 				}//inner for close
 				break;
-			}//case close
+			}
 			default:
 				System.out.println("invalid Choice for Students");
+			}//case close
+			}catch(NullPointerException e) {
+				System.out.println("Action Cant be Null");
+				
+			
+			
 			}//switch case close
 		}//for close;
 	}//method close

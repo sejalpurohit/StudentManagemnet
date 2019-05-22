@@ -8,32 +8,15 @@ public class MainClass {
 	public static String filePath = "C:\\Users\\sejal.purohit\\Desktop\\LoginChoice.xlsx";
 
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {	
-		
-		
-		/*String filePathTeacher = "C:\\Users\\sejal.purohit\\Desktop\\Teacher.xlsx";
+			
+		/*String filePathStudent = "C:\\Users\\sejal.purohit\\Desktop\\Students.xlsx";
 		ReadTeacherExcel read = new ReadTeacherExcel();
 		List<Teachers> list =read.readExcel(filePathTeacher);
 		for(Object obj : list) {
 		System.out.println(obj);}*/
+		
+		
 	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		
@@ -41,7 +24,8 @@ public class MainClass {
 
 		List<LoginChoice> list = loginChoice.readLoginChoice(filePath);
 			for (int index = 0; index < list.size(); index++) {
-			switch (list.get(index).getChoice()) {
+				try {
+			switch (list.get(index).getChoice().toLowerCase()) {
 			case "admin": {
 				AdminChoice admin = new AdminChoice();
 				admin.choiceForAdmin();
@@ -60,6 +44,9 @@ public class MainClass {
 			default:
 				System.out.println("Invalid Choice..!!");
 			}// outer switch case close
+				}catch(NullPointerException e) {
+					System.out.println("Action cannot be Null");
+				}
 			System.out.println("================================================================================================================================");
 		} // for close
 		System.out.println("Session Expired.....!!!!");

@@ -27,10 +27,10 @@ public class TeacherChoice {
 							(String) list.get(j).getPassword());
 					if (credential == 1) {
 						System.out.println("Verification Sucessful.\nService:-Add Student" + "\nDelete Student"
-								+ "\\nDelete all students");
+								+ "\nDelete all students");
 						for (int index = 0; index < sDetails.size(); index++) {
 
-							switch (sDetails.get(index).getAction()) {
+							switch (sDetails.get(index).getAction().toLowerCase()) {
 							case "add": {
 								System.out.println("Choice:-Add Student");
 								ExcelRead read = new ExcelRead();
@@ -57,7 +57,7 @@ public class TeacherChoice {
 								break;
 							}
 							default:
-								System.out.println("Invalid Choice fro Staff");
+								System.out.println("Invalid Choice for Staff");
 							}// inner switch case close*/
 						} // for close
 					} // if close
@@ -67,8 +67,9 @@ public class TeacherChoice {
 				} catch (Exception e) {
 					e.getMessage();
 				}
-			}//outer if close
-			continue;
+			}
+			//}//outer if close
+			//continue;
 		} // for close
 
 	}

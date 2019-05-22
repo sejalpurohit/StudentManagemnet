@@ -46,7 +46,7 @@ public class JDBC {
 		String sql = "DELETE FROM StudentDetails";
 		PreparedStatement preparedStatement = connect.prepareStatement(sql);
 		preparedStatement.executeUpdate(sql);
-		System.out.println("Student Tbale Data Delete...!!!");
+		System.out.println("Student Table Data Delete...!!!");
 	}
 
 	public void deleteSpecificStudent(int id) throws SQLException {
@@ -55,7 +55,7 @@ public class JDBC {
 
 		preparedStatement.setInt(1, id);
 		preparedStatement.executeUpdate();
-		System.out.println("Student "+id+" Deleted");
+		System.out.println("Student Id -"+id+" Deleted");
 	}
 	public Students getSpecificStudent(int id) throws SQLException
 	{

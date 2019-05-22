@@ -39,7 +39,7 @@ public class TeacherJDBC {
 		ResultSet resultSet = statement.executeQuery(sql);
 		while (resultSet.next()) {
 			Teachers teacher = new Teachers();
-			teacher.setTid(resultSet.getInt(1));
+			teacher.setTid((int)resultSet.getInt(1));
 			teacher.setName(resultSet.getString(2));
 			teacher.setUsername(resultSet.getString(3));
 			teacher.setPassword(resultSet.getString(4));

@@ -59,7 +59,7 @@ public class ReadLoginChoice {
 					try {
 					choice.setUserName((String) getCellValue(cell));
 				}catch(NullPointerException |ClassCastException e) {
-					System.out.println("Password can be String value only");
+					System.out.println("Username can be String value only");
 				}
 				break;
 				case 2:

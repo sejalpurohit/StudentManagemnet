@@ -27,7 +27,6 @@ public static String filePathTeacher = "C:\\Users\\sejal.purohit\\Desktop\\Teach
 						+ "\nDelete Teachers" + "\nDelete Specific Teacher");
 
 				List<Teachers> teacher = readTeacher.readExcel(filePathTeacher);
-				System.out.println("size...."+teacher.size());
 
 				for (int index = 0; index < teacher.size(); index++) {
 
@@ -49,13 +48,10 @@ public static String filePathTeacher = "C:\\Users\\sejal.purohit\\Desktop\\Teach
 					case "view": {
 						System.out.println("Choice:-View");
 						List<Teachers> teachers = teacherJdbc.getTeachers();
-						System.out.println("size....."+teachers.size());
-						/*for(Object o: teachers) {
-							System.out.println(o);
-						}*/
+						
 						for(int i =0 ;i < teachers.size();i++) {
 								System.out.println("\n");
-								System.out.println("Staff Id  :"+teachers.get(i).getTid());
+								System.out.println("Staff Id  :"+(int)teachers.get(i).getTid());
 								System.out.println("Name      :"+teachers.get(i).getName());
 								System.out.println("Username  :"+teachers.get(i).getUsername());
 								System.out.println("Password  :"+teachers.get(i).getPassword());
@@ -75,9 +71,7 @@ public static String filePathTeacher = "C:\\Users\\sejal.purohit\\Desktop\\Teach
 					default:
 						System.out.println("Invalid Choice for Admin");
 						}// inner switch case close
-					}catch(NullPointerException e) {
-						
-						
+					}catch(NullPointerException e) {	
 					}
 				} //for close
 			} // if inner
