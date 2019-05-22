@@ -20,40 +20,42 @@ public class JDBC {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
 
-	public void store(Students student) throws SQLException {
+	}
+	public void store(Object obj) throws SQLException {
 		String sql = "insert into StudentDetails value (?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement preparedStatement = connect.prepareStatement(sql);
 
-		preparedStatement.setInt(1, (int) student.getId());
-		preparedStatement.setString(2, student.getName());
-		preparedStatement.setInt(3, (int) student.getContact());
-		preparedStatement.setString(4, student.getEmail());
-		preparedStatement.setInt(5, (int) student.getPhysics());
-		preparedStatement.setInt(6, (int) student.getChemistry());
-		preparedStatement.setInt(7, (int) student.getMaths());
-		preparedStatement.setInt(8, (int) student.getBiology());
-		preparedStatement.setInt(9, (int) student.getTotal());
-		preparedStatement.setInt(10, (int) student.getPercentage());
-		preparedStatement.setString(11, student.getGrade());
+		preparedStatement.setInt(1, (int) ((Students) obj).getId());
+		preparedStatement.setString(2, ((Students) obj).getName());
+		preparedStatement.setInt(3, (int) ((Students) obj).getContact());
+		preparedStatement.setString(4, ((Students) obj).getEmail());
+		preparedStatement.setInt(5, (int) ((Students) obj).getPhysics());
+		preparedStatement.setInt(6, (int) ((Students) obj).getChemistry());
+		preparedStatement.setInt(7, (int) ((Students) obj).getMaths());
+		preparedStatement.setInt(8, (int) ((Students) obj).getBiology());
+		preparedStatement.setInt(9, (int) ((Students) obj).getTotal());
+		preparedStatement.setInt(10, (int) ((Students) obj).getPercentage());
+		preparedStatement.setString(11, ((Students) obj).getGrade());
 
 		preparedStatement.executeUpdate();
+		System.out.println("Students data Inserted Successfully");
 	}
 
 	public void deleteAllStudent() throws SQLException {
 		String sql = "DELETE FROM StudentDetails";
 		PreparedStatement preparedStatement = connect.prepareStatement(sql);
 		preparedStatement.executeUpdate(sql);
+		System.out.println("Student Tbale Data Delete...!!!");
 	}
 
 	public void deleteSpecificStudent(int id) throws SQLException {
-		String sql = "delete from StudentDetails where TID =?";
+		String sql = "delete from StudentDetails where ID =?";
 		PreparedStatement preparedStatement = connect.prepareStatement(sql);
 
 		preparedStatement.setInt(1, id);
 		preparedStatement.executeUpdate();
+		System.out.println("Student "+id+" Deleted");
 	}
 	public Students getSpecificStudent(int id) throws SQLException
 	{
@@ -74,6 +76,7 @@ public class JDBC {
 				 student.setPercentage(resultSet.getInt(10));
 				 student.setGrade(resultSet.getString(11));
 			 }
+			 System.out.println("Student Details for id ="+id);
 		 	return student;
 	 }
 	
@@ -97,6 +100,7 @@ public class JDBC {
 				 student.setGrade(resultSet.getString(11));
 				 studentList.add(student);
 			 }
+			 System.out.println("All Student list :-");
 			 	return studentList;
 	 }
 }

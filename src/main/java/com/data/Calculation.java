@@ -7,55 +7,55 @@ public class Calculation {
 	
 	JDBC jdbc = new JDBC();
 	
-	public void total(Students student) throws SQLException {
+	public void total(Object obj){
 		double total;
-		total = student.getPhysics() + student.getMaths() + student.getChemistry() +student.getBiology() ;
-		percentage(total,student);
-		student.setTotal(total);
-		
+		total = ((Students) obj).getPhysics() + ((Students) obj).getMaths() + ((Students) obj).getChemistry() +((Students) obj).getBiology() ;
+		percentage(total,obj);
+		((Students) obj).setTotal(total);
 		}
 	
-	public void  percentage(double total,Students student) throws SQLException {
+	public void  percentage(double total,Object obj){
 		
 		double percentage = (total/400)*100;
-		grade((int)percentage, student);
-		
-		student.setPercentage(percentage);
-			
-	}
-	
-	public void grade(int percentage, Students student) throws SQLException {
+		try {
+		grade((int)percentage, obj);
+		}catch(SQLException e) {
+			e.getMessage();
+		}
+		((Students) obj).setPercentage(percentage);
+				}
+	public void grade(int percentage, Object obj) throws SQLException {
 		
 		if (percentage >= 90)
 		{
 			String grade = "A";
-			student.setGrade(grade);
+			((Students) obj).setGrade(grade);
 			
 		}
 		else if (percentage < 90 && percentage >= 75)
 		{
 			String grade ="B";
-			student.setGrade(grade);
+			((Students) obj).setGrade(grade);
 		}
 		else if (percentage < 75 && percentage >= 60)
 		{
 			 String grade = "C";
-			 student.setGrade(grade);
+			 ((Students) obj).setGrade(grade);
 		}
 		else if (percentage < 60 && percentage >= 50)
 		{
 			String grade = "D";
-			student.setGrade(grade);
+			((Students) obj).setGrade(grade);
 		}
 		else if (percentage < 60 && percentage >= 33)
 		{
 			String grade = "E";
-			student.setGrade(grade);
+			((Students) obj).setGrade(grade);
 		}
 		else
 		{
 			String grade = "F";
-			student.setGrade(grade);
+			((Students) obj).setGrade(grade);
 		}
 	
 	}

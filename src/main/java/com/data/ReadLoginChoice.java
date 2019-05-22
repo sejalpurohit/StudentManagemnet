@@ -28,7 +28,6 @@ public class ReadLoginChoice {
 		}
 		return null;
 	}	
-
 	public List<LoginChoice> readLoginChoice(String filePath) throws IOException, SQLException {
 		List<LoginChoice> choiceList = new ArrayList<>();
 
@@ -41,7 +40,7 @@ public class ReadLoginChoice {
 		while (rowIterator.hasNext()) {
 			Row row = rowIterator.next();
 			if (row.getRowNum() == 0) {
-				continue; // just skip the rows if row number is 0 or
+				continue; //Skip row =0
 			}
 			Iterator<Cell> cellIterator = row.cellIterator();
 			LoginChoice choice = new LoginChoice();
@@ -50,21 +49,31 @@ public class ReadLoginChoice {
 				int column = cell.getColumnIndex();
 				switch (column) {
 				case 0:
+					try {
 					choice.setChoice((String) getCellValue(cell));
+				}catch(NullPointerException |ClassCastException e) {
+					System.out.println("Choice can be String value only");
+				}
 					break;
 				case 1:
+					try {
 					choice.setUserName((String) getCellValue(cell));
-					break;
-				case 2:
-					choice.setPassword((String) getCellValue(cell));
-					break;
+				}catch(NullPointerException |ClassCastException e) {
+					System.out.println("Password can be String value only");
 				}
-				
+				break;
+				case 2:
+					try {
+					choice.setPassword((String) getCellValue(cell));
+				}catch(NullPointerException |ClassCastException e) {
+					System.out.println("Password can be String value only");
+				}
+				break;
+				}
 			}
 			choiceList.add(choice);
 		}
-		
-		//workbook.close();
+		workbook.close();
 		fileInput.close();
 		return choiceList;
 	}

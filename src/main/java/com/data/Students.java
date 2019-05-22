@@ -13,8 +13,18 @@ public class Students {
 	private double total;
 	private double percentage;
 	private String grade;
+	private String action;
 	
-	
+	public String getAction() {
+		return action;
+	}
+
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+
+
 	public double getId() {
 		return id;
 	}
@@ -127,8 +137,9 @@ public class Students {
 
 	@Override
 	public String toString() {
-		return "Students [id=" + id + ", name=" + name + ", email=" + email + ", contact=" + contact + ", physics="
-				+ physics + ", chemistry=" + chemistry + ", maths=" + maths + ", biology=" + biology + "]";
+		return "Students [id=" + id + ", name=" + name + ", contact=" + contact + ", email=" + email + ", physics="
+				+ physics + ", chemistry=" + chemistry + ", maths=" + maths + ", biology=" + biology + ", total="
+				+ total + ", percentage=" + percentage + ", grade=" + grade + ", action=" + action + "]";
 	}
 	
 }

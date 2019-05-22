@@ -7,58 +7,85 @@ import java.util.List;
 public class AdminChoice {
 	private static String adminUserName = "admin";
 	private static String adminPassword = "admin1234";
-	private String filePathTeacher = "C:\\Users\\sejal.purohit\\Desktop\\Teacher.xlsx";
+	private static String adminName = "admin";
+public static String filePathTeacher = "C:\\Users\\sejal.purohit\\Desktop\\Teacher.xlsx";
 
 	public void choiceForAdmin() throws IOException, ClassNotFoundException, SQLException {
 
 		ReadLoginChoice loginChoice = new ReadLoginChoice();
 		ReadTeacherExcel readTeacher = new ReadTeacherExcel();
-		System.out.println("Welcome to Admin Portal Choose your Service\n"
+		System.out.println("Welcome to Admin Portal\n"
 				+ "Verifying User\nUsername->reading from excel\n" + "Password->reading from excel");
 		String filePathLogin = "C:\\Users\\sejal.purohit\\Desktop\\LoginChoice.xlsx";
 		List<LoginChoice> list = loginChoice.readLoginChoice(filePathLogin);
-		List<Teachers> teacher = readTeacher.readExcel(filePathTeacher);
-		// TeacherJDBC teacherJdbc = new TeacherJDBC();
+	
+		TeacherJDBC teacherJdbc = new TeacherJDBC();
 		for (int j = 0; j < list.size(); j++) {
-
+			if(adminName.equals(list.get(j).getChoice())) {
 			if (adminUserName.equals(list.get(j).getUserName()) && adminPassword.equals(list.get(j).getPassword())) {
-				System.out.println("Login Successful" + "\nChoose your Service" + "\nAdd Teacher" + "\nView Teachers"
-						+ "\nDelete Teachers" + "\nDelete Specific Teacher" + "\nEnter your choice");
+				System.out.println("Login Successful" + "\nService:-" + "\nAdd Teacher" + "\nView Teachers"
+						+ "\nDelete Teachers" + "\nDelete Specific Teacher");
+
+				List<Teachers> teacher = readTeacher.readExcel(filePathTeacher);
+				System.out.println("size...."+teacher.size());
 
 				for (int index = 0; index < teacher.size(); index++) {
 
+					try {
 					switch (teacher.get(index).getAction()) {
-					case "Add": {
-						System.out.println("In add option ..........");
-						// ReadTeacherExcel read = new ReadTeacherExcel();
-						// read.readExcel(filePath);
+					case "add": {
+						System.out.println("Choice:-Add");
+						ReadTeacherExcel read = new ReadTeacherExcel();
+						List<Teachers> teacher2 = read.readExcel(filePathTeacher);
+						for (Object obj : teacher2) {
+							try {
+								teacherJdbc.AddTeacher(obj);
+							} catch (Exception e) {
+								e.getMessage();
+							}
+						}
+						break;					
+						}
+					case "view": {
+						System.out.println("Choice:-View");
+						List<Teachers> teachers = teacherJdbc.getTeachers();
+						System.out.println("size....."+teachers.size());
+						/*for(Object o: teachers) {
+							System.out.println(o);
+						}*/
+						for(int i =0 ;i < teachers.size();i++) {
+								System.out.println("\n");
+								System.out.println("Staff Id  :"+teachers.get(i).getTid());
+								System.out.println("Name      :"+teachers.get(i).getName());
+								System.out.println("Username  :"+teachers.get(i).getUsername());
+								System.out.println("Password  :"+teachers.get(i).getPassword());
+							}
 						break;
 					}
-					case "View": {
-						System.out.println("In view option");
-						// List<Teachers> teachers = teacherJdbc.getTeachers();
-						// System.out.println(teachers);
+					case "delete all": {
+						System.out.println("Choice:-Delete");
+						teacherJdbc.deleteTeachers();
 						break;
 					}
-					case "Delete": {
-						System.out.println("In delete option");
-						// teacherJdbc.deleteTeachers();
-						break;
-					}
-					case "Delete All": {
-						System.out.println("In delete all option");
-						// System.out.println("Enter teacher Id");
-						// int tid = sc.nextInt();
-						// teacherJdbc.deleteSpecificTeacher(tid);
+					case "delete": {
+						System.out.println("Enter teacher UserName");
+						teacherJdbc.deleteSpecificTeacher((int) teacher.get(index).getTid());
 						break;
 					} // case 4 close
 					default:
-						System.out.println("Invalid Choice");
-					}// inner switch case close
-				} // if close
-
-			} // for inner
+						System.out.println("Invalid Choice for Admin");
+						}// inner switch case close
+					}catch(NullPointerException e) {
+						
+						
+					}
+				} //for close
+			} // if inner
+			else { 
+				 System.out.println("Invalid Credential..!!!");
+				 }
+			continue;
+			}
 		} // for outer
-			// else { System.out.println("Invalid Credential..!!!"); }
 	}
 }

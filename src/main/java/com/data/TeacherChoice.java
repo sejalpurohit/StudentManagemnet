@@ -1,62 +1,76 @@
 package com.data;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
-import java.util.Scanner;
+import java.util.List;
 
 public class TeacherChoice {
 
-	public void choiceForTeacher() throws IOException, SQLException, ClassNotFoundException {
-		Scanner sc = new Scanner(System.in);
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	public static String filePathStudent = "C:\\Users\\sejal.purohit\\Desktop\\Students.xlsx";
+	public void choiceForTeacher() throws IOException, ClassNotFoundException, SQLException {
+
+		ExcelRead sRead = new ExcelRead();
+		List<Students> sDetails = sRead.readFromExcel(filePathStudent);
+
 		System.out.println("Welcom to Staff Portal\nVerifying User...");
-		System.out.println("Enter Staff UserName");
-		/*String username = reader.readLine();
-		System.out.println("Enter Staff Password");
-		String password = reader.readLine();
-		JDBC jdbc = new JDBC();
-		TeacherJDBC t = new TeacherJDBC();
-		int credential = t.verification(username, password);
-		if (credential == 1) {
-			System.out.println("Verification Sucessful.\nChoose your Service"+"\nto a Add Student Press 1"
-					+ "\nto To delete a specifi Student Press 2" + "\nTo Delete all students Press 3"
-					+ "\nEnter your choice");
-			int choice = sc.nextInt();
-			switch (choice) {
-			case 1: {
-				System.out.println("Addes STUDENT");
-				String filePath = "C:\\Users\\sejal.purohit\\Desktop\\Students.xlsx";
-				ExcelRead read = new ExcelRead();
-				read.readFromExcel(filePath);
-				break;
-			}
-			case 2: {
-				System.out.println("update student");
-				break;
-			}
-			case 3: {
-				System.out.println("delete specific");
-				System.out.println("Enter teacher Id");
-				int id = sc.nextInt();
-				jdbc.deleteSpecificStudent(id);
-				break;
-			}
-			case 4: {
-				System.out.println("delete");
-				jdbc.deleteAllStudent();
-				break;
-			}
-			default:
-				System.out.println("invalid choice");
-			}// inner switch case close
-		} // if close
-		else {
-			System.out.println("Invalid Staff credentials");
-		}
-		sc.close();
-		reader.close();*/
+		ReadLoginChoice loginChoice = new ReadLoginChoice();
+		String filePathLogin = "C:\\Users\\sejal.purohit\\Desktop\\LoginChoice.xlsx";
+		List<LoginChoice> list = loginChoice.readLoginChoice(filePathLogin);
+
+		for (int j = 0; j < list.size(); j++) {
+			if (list.get(j).getChoice().equalsIgnoreCase("staff")) {
+				JDBC jdbc = new JDBC();
+				TeacherJDBC t = new TeacherJDBC();
+
+				try {
+					int credential = t.verification((String) list.get(j).getUserName(),
+							(String) list.get(j).getPassword());
+					if (credential == 1) {
+						System.out.println("Verification Sucessful.\nService:-Add Student" + "\nDelete Student"
+								+ "\\nDelete all students");
+						for (int index = 0; index < sDetails.size(); index++) {
+
+							switch (sDetails.get(index).getAction()) {
+							case "add": {
+								System.out.println("Choice:-Add Student");
+								ExcelRead read = new ExcelRead();
+								List<Students> details = read.readFromExcel(filePathStudent);
+								Calculation calculate = new Calculation();
+								for (Object obj : details) {
+									calculate.total(obj);
+									try {
+										jdbc.store(obj);
+									} catch (Exception e) {
+										e.getMessage();
+									}
+								}
+								break;
+							}
+							case "delete": {
+								System.out.println("Choice:-Delete By Id");
+								jdbc.deleteSpecificStudent((int) sDetails.get(index).getId());
+								break;
+							}
+							case "delete all": {
+								System.out.println("Choice:-Delete All Student");
+								jdbc.deleteAllStudent();
+								break;
+							}
+							default:
+								System.out.println("Invalid Choice fro Staff");
+							}// inner switch case close*/
+						} // for close
+					} // if close
+					else {
+						System.out.println("Invalid Staff credentials");
+					}
+				} catch (Exception e) {
+					e.getMessage();
+				}
+			}//outer if close
+			continue;
+		} // for close
+
 	}
 
 }

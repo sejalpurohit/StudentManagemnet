@@ -3,7 +3,6 @@ package com.data;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ReadTeacherExcel {
 	
 
-	public List<Teachers> readExcel(String filePath) throws IOException, ClassNotFoundException, SQLException {
+	public List<Teachers> readExcel(String filePath) throws IOException {
 		List<Teachers> teachersLogin = new ArrayList<>();
 		FileInputStream fileInput = new FileInputStream(new File(filePath));
 		XSSFWorkbook workbook = new XSSFWorkbook(fileInput);
@@ -26,7 +25,7 @@ public class ReadTeacherExcel {
 		while(rowIterator.hasNext()) {
 			Row row = rowIterator.next();
 			if (row.getRowNum() == 0) {
-				continue; // just skip the rows if row number is 0 or
+				continue; //Skip row =0
 			}
 			Iterator<Cell> cellIterator = row.cellIterator();
 			Teachers teacher = new Teachers();
@@ -37,27 +36,42 @@ public class ReadTeacherExcel {
 				switch(cellCount)
 				{
 				case 0:
+					try {
 					teacher.setTid((double) getCellValue(cell));
+				}catch(NullPointerException |ClassCastException e) {
+					System.out.println("Id can be Integer value only");
+				}
 					break;
 				case 1:
+					try {
 					teacher.setName((String) getCellValue(cell));
+				}catch(NullPointerException |ClassCastException e) {
+					System.out.println("Name can be String value only");
+				}
 					break;
-				case 2:
+				case 2:try {
 					teacher.setUsername((String) getCellValue(cell));
+				}catch(NullPointerException |ClassCastException e) {
+					System.out.println("Username can be String value only");
+				}
 					break;
-				case 3:
+				case 3:try {
 					teacher.setPassword((String) getCellValue(cell));
+				}catch(NullPointerException |ClassCastException e) {
+					System.out.println("Password can be String value only");
+				}
 					break;
-				case 4:
+				case 4:try {
 					teacher.setAction((String) getCellValue(cell));
+				}catch(NullPointerException |ClassCastException e) {
+					System.out.println("Action can be String value only");
+				}
 					break;
 				default:
 					break;
 				}
 			}
 			teachersLogin.add(teacher);
-			//TeacherJDBC teacherJDBC = new TeacherJDBC();
-			//teacherJDBC.AddTeacher(teacher);
 		}
 		fileInput.close();
 		workbook.close();
@@ -67,7 +81,6 @@ public class ReadTeacherExcel {
 		switch(cell.getCellType()) {
 		case STRING :
 			return cell.getStringCellValue();
-		
 		case NUMERIC:
 			return cell.getNumericCellValue();
 		case BOOLEAN:

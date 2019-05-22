@@ -11,37 +11,25 @@ public class LoginChoice {
 		return choice;
 	}
 
-
-
 	public void setChoice(String choice) {
 		this.choice = choice;
 	}
-
-
 
 	public String getUserName() {
 		return userName;
 	}
 
-
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-
 
 	@Override
 	public String toString() {
