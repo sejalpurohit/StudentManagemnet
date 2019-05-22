@@ -14,12 +14,6 @@ public class MainClass {
 		List<Teachers> list =read.readExcel(filePathTeacher);
 		for(Object obj : list) {
 		System.out.println(obj);}*/
-		
-		
-	
-		
-		
-		
 		ReadLoginChoice loginChoice = new ReadLoginChoice();
 
 		List<LoginChoice> list = loginChoice.readLoginChoice(filePath);

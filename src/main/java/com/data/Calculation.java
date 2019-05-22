@@ -7,12 +7,20 @@ public class Calculation {
 	
 	JDBC jdbc = new JDBC();
 	
-	public void total(Object obj){
+	
+	
+	
+	public void total(Object obj)
+	{
 		double total;
 		total = ((Students) obj).getPhysics() + ((Students) obj).getMaths() + ((Students) obj).getChemistry() +((Students) obj).getBiology() ;
+		 {
+		System.out.println("Marks cannot be more then 100");}
 		percentage(total,obj);
 		((Students) obj).setTotal(total);
-		}
+		
+		
+	}
 	
 	public void  percentage(double total,Object obj){
 		

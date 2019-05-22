@@ -20,16 +20,15 @@ public static String filePathTeacher = "C:\\Users\\sejal.purohit\\Desktop\\Teach
 		List<LoginChoice> list = loginChoice.readLoginChoice(filePathLogin);
 	
 		TeacherJDBC teacherJdbc = new TeacherJDBC();
-		for (int j = 0; j < list.size(); j++) {
-			if(adminName.equals(list.get(j).getChoice())) {
+		for (int j = 0; j < list.size(); j++) {//iterate over no of choice
+			if(adminName.equals(list.get(j).getChoice().toLowerCase())) {
 			if (adminUserName.equals(list.get(j).getUserName()) && adminPassword.equals(list.get(j).getPassword())) {
-				System.out.println("Login Successful" + "\nService:-" + "\nAdd Teacher" + "\nView Teachers"
+				System.out.println("Login Successful" + "\nService:-"+"\nAdd Teacher" + "\nView Teachers"
 						+ "\nDelete Teachers" + "\nDelete Specific Teacher");
 
 				List<Teachers> teacher = readTeacher.readExcel(filePathTeacher);
 
 				for (int index = 0; index < teacher.size(); index++) {
-
 					try {
 					switch (teacher.get(index).getAction()) {
 					case "add": {

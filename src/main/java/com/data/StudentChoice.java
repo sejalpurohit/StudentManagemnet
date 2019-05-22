@@ -6,7 +6,7 @@ import java.util.List;
 
 public class StudentChoice {
 
-	public void choiceForStudent() throws SQLException, IOException {
+	public void choiceForStudent() throws SQLException, IOException, ClassNotFoundException {
 
 		String filePathStudent = "C:\\Users\\sejal.purohit\\Desktop\\Students.xlsx";
 		ExcelRead sRead = new ExcelRead();
@@ -54,11 +54,18 @@ public class StudentChoice {
 				}//inner for close
 				break;
 			}
+			case "write":{
+				WriteMarksheet write = new WriteMarksheet();
+				write.getMarks();
+				
+				break;
+				
+			}
 			default:
 				System.out.println("invalid Choice for Students");
 			}//case close
 			}catch(NullPointerException e) {
-				System.out.println("Action Cant be Null");
+				System.out.println("Action Cannot be Null");
 				
 			
 			

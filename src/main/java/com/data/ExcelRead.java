@@ -68,6 +68,7 @@ public class ExcelRead {
 					break;
 				case 4:
 					try {
+						
 					student.setPhysics((double) getCellValue(cell));
 				}catch(NullPointerException |ClassCastException e) {
 					System.out.println("Physics Marks can be Integer value Only");
@@ -103,7 +104,16 @@ public class ExcelRead {
 					break;
 				}
 			}
+			if(student.getPhysics()>100 || student.getChemistry()>100 || student.getMaths()>100 ||student.getBiology()>100)
+			{
+				System.out.println("Marks can not be greater then 100"
+						+ "\n==========================================================================================================");
+				
+			}
+			else 
+			{
 			details.add(student);
+			}
 		}
 		workbook.close();
 		fileInput.close();

@@ -28,8 +28,8 @@ public class JDBC {
 
 		preparedStatement.setInt(1, (int) ((Students) obj).getId());
 		preparedStatement.setString(2, ((Students) obj).getName());
-		preparedStatement.setInt(3, (int) ((Students) obj).getContact());
-		preparedStatement.setString(4, ((Students) obj).getEmail());
+		preparedStatement.setInt(3,(int) ((Students) obj).getContact());
+		preparedStatement.setString(4,((Students) obj).getEmail());
 		preparedStatement.setInt(5, (int) ((Students) obj).getPhysics());
 		preparedStatement.setInt(6, (int) ((Students) obj).getChemistry());
 		preparedStatement.setInt(7, (int) ((Students) obj).getMaths());
